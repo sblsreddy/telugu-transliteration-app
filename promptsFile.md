@@ -1,14 +1,15 @@
-------------Master prompt  to generate -------------------------
+**------------Master prompt  to generate --------------**
+
 Build a production-ready Telugu transliteration web app.
 
-Tech stack:
+**Tech stack:**
 - Next.js
 - TypeScript
 - Tailwind CSS
 - PostgreSQL
 - Prisma ORM
 
-Requirements:
+**Requirements:**
 - English to Telugu transliteration
 - Mobile responsive
 - Admin dashboard
