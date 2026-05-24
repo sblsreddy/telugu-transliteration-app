@@ -1,0 +1,23 @@
+Issue identified:
+- Repo had package.json but missing actual Next.js app scaffold.
+- No `app/`, `prisma/`, `public/`, or source files present.
+- The terminal problem was not a runtime error but an incomplete project setup.
+
+Fixes applied:
+- Generated full Next.js + TypeScript app structure.
+- Added Tailwind CSS configuration.
+- Added Prisma ORM setup with `prisma/schema.prisma`.
+- Added admin dashboard pages and API routes for transliteration and history.
+- Added helper modules: Prisma client and transliteration logic.
+- Added unit tests and Jest configuration.
+- Added GitHub Actions CI workflow.
+- Added README with environment variable setup, deployment, and testing instructions.
+- Updated `package.json` to include correct dependencies and scripts.
+- Updated `.gitignore` for common ignores.
+
+Sandbox / environment approach:
+- Use sandbox/dev environment first.
+- Keep `development` branch isolated from production.
+- Validate locally and in a staging/sandbox deployment before promoting to production.
+- Use environment variables like `DATABASE_URL` per environment.
+- Only move to real development/production after testing and verification.
