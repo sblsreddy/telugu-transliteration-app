@@ -1,9 +1,9 @@
 import { transliterate } from '../lib/transliteration';
 
 describe('transliterate', () => {
-  it('transliterates simple english text to telugu', () => {
-    expect(transliterate('namaste')).toContain('న');
-    expect(transliterate('namaste')).toContain('మ');
+  it('transliterates simple english text to telugu using library rules', () => {
+    expect(transliterate('namaste')).toBe('నమస్తే');
+    expect(transliterate('telugu')).toBe('తేలుగు');
   });
 
   it('returns an empty string for blank input', () => {
@@ -11,7 +11,8 @@ describe('transliterate', () => {
   });
 
   it('preserves spaces and punctuation', () => {
-    expect(transliterate('hello world.')).toContain(' ');
-    expect(transliterate('hello world.')).toContain('।');
+    const result = transliterate('hello world.');
+    expect(result).toContain(' ');
+    expect(result).toContain('।');
   });
 });

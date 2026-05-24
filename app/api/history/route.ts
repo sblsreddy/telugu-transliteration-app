@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { prisma, fallbackStore } from '@/lib/db';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -10,10 +10,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Unauthorized access.' }, { status: 401 });
   }
 
-  const history = await prisma.transliteration.findMany({
-    orderBy: { createdAt: 'desc' },
-    take: 50,
-  });
+  const history = prisma
+    ? await prisma.transliteration.findMany({
+        orderBy: { createdAt: 'desc' },
+        take: 50,
+      })
+    : fallbackStore.history.slice(0, 50);
 
   return NextResponse.json({ history });
 }

@@ -1,8 +1,37 @@
 import { PrismaClient } from '@prisma/client';
 
-const globalForPrisma = globalThis as typeof globalThis & {
-  prisma?: PrismaClient;
+export type TransliterationRecord = {
+  id: number;
+  sourceText: string;
+  resultText: string;
+  createdAt: string;
 };
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient();
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+const globalForPrisma = globalThis as typeof globalThis & {
+  prisma?: PrismaClient | null;
+  fallbackStore?: {
+    history: TransliterationRecord[];
+    nextId: number;
+  };
+};
+
+const usePrisma = Boolean(process.env.DATABASE_URL);
+
+export const useFallbackStore = !usePrisma;
+
+export const prisma = usePrisma
+  ? globalForPrisma.prisma ?? new PrismaClient()
+  : null;
+
+if (usePrisma && process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = prisma;
+}
+
+export const fallbackStore = globalForPrisma.fallbackStore ?? {
+  history: [] as TransliterationRecord[],
+  nextId: 1,
+};
+
+if (!globalForPrisma.fallbackStore) {
+  globalForPrisma.fallbackStore = fallbackStore;
+}

@@ -26,7 +26,7 @@ A production-ready web application for English-to-Telugu transliteration, built 
    cp .env.example .env
    ```
 
-3. Update `.env` with your PostgreSQL connection string and a secure admin secret.
+3. Update `.env` with your database provider and connection string. For local development, the app can use SQLite as shown in `.env.example`.
 
 4. Generate Prisma client:
 
@@ -50,8 +50,10 @@ A production-ready web application for English-to-Telugu transliteration, built 
 
 The app expects the following environment variables:
 
-- `DATABASE_URL` - PostgreSQL connection string
+- `DATABASE_URL` - PostgreSQL connection string (or SQLite URL for local development)
 - `ADMIN_SECRET` - secret used for the admin history dashboard
+
+If `DATABASE_URL` is not configured, the app will use a local in-memory history fallback for sandbox development only. For production, configure a PostgreSQL database.
 
 ## Testing
 

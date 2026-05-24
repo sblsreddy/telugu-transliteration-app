@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useFallbackStore } from '@/lib/db';
 
 type HistoryItem = {
   id: number;
@@ -43,6 +44,15 @@ export default function AdminPage() {
             Retrieve the latest transliteration records from the PostgreSQL history store. Enter the admin secret to view data.
           </p>
         </div>
+
+        {useFallbackStore ? (
+          <div className="mb-8 rounded-3xl border border-amber-500/40 bg-amber-500/10 p-4 text-amber-100">
+            <p className="text-sm font-semibold">Sandbox fallback mode active</p>
+            <p className="mt-1 text-sm text-amber-200">
+              History is stored in-memory only. Configure `DATABASE_URL` for persistent database storage.
+            </p>
+          </div>
+        ) : null}
 
         <div className="grid gap-4 rounded-3xl border border-slate-700 bg-slate-950/80 p-6 sm:grid-cols-[1fr_auto]">
           <input
